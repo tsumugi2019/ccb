@@ -107,7 +107,7 @@ Token* tokenize(char* p){
             continue;
         }
         //どれでもない
-        error_at(token->str, "トークナイズできません");
+        error_at(p, "トークナイズできません");
     }
     //最後にEOFを追加
     new_token(TK_EOF, cur, p);
