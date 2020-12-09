@@ -42,6 +42,15 @@ void error_at(char* loc, char* fmt, ...){
     exit(1);
 }
 
+//エラーを報告する関数
+void error(char* fmt, ...){
+    va_list ap;
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
+    fprintf(stderr, "\n");
+    exit(1);
+}
+
 //次のトークンが期待している記号のときは、トークンを1つ読み進めて
 //trueを返す。そうでなければfalseを返す。
 bool consume(char op){
@@ -116,14 +125,13 @@ Token* tokenize(char* p){
 
 int main(int argc, char** argv){
 
-    //入力プログラムを保存
-    user_input = argv[1];
-
     if(argc != 2){
-        error_at(token->str, "引数の個数が正しくありません\n");
+        error("引数の個数が正しくありません\n");
         return 1;
     }
 
+    //入力プログラムを保存
+    user_input = argv[1];
     //トークナイズする
     token = tokenize(argv[1]);
 
